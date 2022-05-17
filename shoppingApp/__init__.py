@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from shoppingApp.config import Config
 from flask_migrate import Migrate
+from flask_login import LoginManager
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -14,6 +15,16 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
+
+    from shoppingApp.models import User
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
+
     from shoppingApp import auth, main
 
     # blueprint for main routes in our app
@@ -24,6 +35,6 @@ def create_app():
     from shoppingApp.auth.auth_routes import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix="/auth")
 
-    from shoppingApp import config, models, operate_user_data
+    from shoppingApp import config, operate_user_data, models
 
     return app

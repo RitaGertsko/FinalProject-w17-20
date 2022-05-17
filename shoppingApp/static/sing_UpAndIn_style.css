@@ -52,10 +52,40 @@ main {
   width: 95%;
 }
 
+#rememberMeLabel:hover {
+  cursor: pointer;
+}
+
 #rememberMeCheckbox {
   height: 4%;
   width: 4%;
   padding: 2.5%;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+#rememberMeCheckbox:hover {
+  cursor: pointer;
+}
+
+#rememberMeCheckbox::after {
+  content: "\2713";
+  color: white;
+  font-weight: 900;
+  font-size: 1em;
+  position: relative;
+  bottom: 0.8em;
+  right: 0.4em;
+  transform: scale(0);
+  transition: transform 0.15s;
+}
+
+#rememberMeCheckbox:checked {
+  background-color: rgb(51, 153, 102);
+}
+
+#rememberMeCheckbox:checked::after {
+  transform: scale(1);
 }
 
 #sing-up-button {

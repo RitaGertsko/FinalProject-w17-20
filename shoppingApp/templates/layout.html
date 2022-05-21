@@ -79,11 +79,11 @@
                     {% if current_user.is_authenticated %}
                     <li class="nav-item me-sm-5">
                         <a class="nav-link mx-2 p-0 main-navbar-icon" aria-current="page"
-                           href="#">
+                           href="{{ url_for('profile.profile_info') }}">
                             <i class="fas fa-address-card main-navbar-icon"></i>
                         </a>
                         <a class="nav-link mx-2 p-0 main-navbar-label" aria-current="page"
-                           href="#">Profile</a>
+                           href="{{ url_for('profile.profile_info') }}">Profile</a>
                     </li>
                     <li class="nav-item me-sm-5">
                         <a class="nav-link mx-2 p-0 main-navbar-icon" href="{{ url_for('auth.logout') }}">
@@ -123,13 +123,19 @@
 </section>
 
 {% with messages = get_flashed_messages(with_categories=true) %}
-{% if messages %}
-{% for category, message in messages %}
-<div class="alert alert-{{ category }} mb-3" role="alert">
-    {{ message }}
-</div>
-{% endfor %}
-{% endif %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category %}
+                <div class="alert alert-{{ category }} mb-3" role="alert">
+                    {{ message }}
+                </div>
+            {% else %}
+                <div class="alert alert-danger mb-3" role="alert">
+                    {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 {% endwith %}
 
 {% block content %}

@@ -40,7 +40,7 @@ def sing_up():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    if flask_login.current_user.is_authenticated:  # Check if the user is not already logged in
+    if flask_login.current_user.is_authenticated:
         return redirect(url_for('home.index'))
 
     form = LoginForm()
@@ -48,17 +48,14 @@ def login():
     if form.validate_on_submit():
         email = form.email.data
         password = form.password.data
-        remember = form.remember.data
 
         user = check_user(email)
 
         if user:
             if check_password_hash(user.password, password):
-                print(remember)  # don`t forget to delete!!!
-                flask_login.login_user(user, remember=remember, duration=timedelta(days=2))  # check if the 'remember' me is working and is user 'is active'!!!
-                print(user.is_active, user.is_anonymous, user.is_authenticated)
+                flask_login.login_user(user, remember=form.remember.data, duration=timedelta(seconds=20))  # check it out <---
                 flash(f"{email} logged in successfully", 'success')
-                return redirect(url_for('home.index'))
+                return redirect(url_for('profile.profile_info'))
             else:
                 flash("Password incorrect, please try again", 'danger')
         else:

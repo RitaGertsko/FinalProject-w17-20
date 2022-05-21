@@ -35,6 +35,10 @@ def create_app():
     from shoppingApp.auth.auth_routes import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix="/auth")
 
+    # blueprint for profile routes in our app
+    from shoppingApp.profile.profile_routes import profile as profile_blueprint
+    app.register_blueprint(profile_blueprint, url_prefix="/profile")
+
     from shoppingApp import config, operate_user_data, models
 
     return app

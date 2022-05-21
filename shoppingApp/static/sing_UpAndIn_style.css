@@ -30,6 +30,14 @@ main {
   border-radius: 12px;
 }
 
+.col-6 {
+  margin: 0.4em 0;
+}
+
+.age-recorded-field {
+  font-size: 1em;
+}
+
 .input-form {
   border: 2px solid rgba(51, 153, 102, 0.5);
 }

@@ -75,4 +75,4 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(100), nullable=False)
     age = db.Column(db.String(10), nullable=True)
     date_of_registration = db.Column(db.Date, default=date.today())
-    cart = db.Column(db.Integer, db.ForeignKey('cart.id'), nullable=True)
+    cart = db.Column(db.Integer, db.ForeignKey('cart.id'), default=1)

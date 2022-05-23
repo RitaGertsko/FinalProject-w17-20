@@ -27,18 +27,17 @@ class Products(db.Model):
     __tablename__ = 'products'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = db.Column(db.String(100), nullable=False, index=True, unique=True)
+    title = db.Column(db.String(200), nullable=False, index=True, unique=True)
     description = db.Column(db.Text(), nullable=True)
     ingredients = db.Column(db.Text(), nullable=True)
     price = db.Column(db.Float(), nullable=False)
     img = db.Column(db.Text(), nullable=True)
     img2 = db.Column(db.Text(), nullable=True)
     img3 = db.Column(db.Text(), nullable=True)
-    sale = db.Column(db.Boolean, nullable=False)
+    sale = db.Column(db.Boolean, nullable=False, default=False)
     category = db.Column(db.String, db.ForeignKey('categories.category_name'))
     company = db.Column(db.String, db.ForeignKey('companies.company_name'))
-    cart_id = db.relationship("Cart", back_populates="cart_items")
-    cart_quantity = db.Column(db.Integer, default=0)
+    cart_id = db.Column(db.String, db.ForeignKey('cart.id'))
 
 
 class Categories(db.Model):
@@ -59,9 +58,9 @@ class Cart(db.Model):
     __tablename__ = 'cart'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=True)
+    # product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
-    cart_items = db.relationship('Products', back_populates="cart_id")
+    cart_items = db.relationship('Products', backref='cart', lazy='dynamic')
     quantity = db.Column(db.Integer, nullable=True, default=1)
 
 
@@ -75,4 +74,5 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(100), nullable=False)
     age = db.Column(db.String(10), nullable=True)
     date_of_registration = db.Column(db.Date, default=date.today())
-    cart = db.Column(db.Integer, db.ForeignKey('cart.id'), default=1)
+    admin = db.Column(db.Boolean, default=False)
+    cart = db.Column(db.Integer, db.ForeignKey('cart.id'))

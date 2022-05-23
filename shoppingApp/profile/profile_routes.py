@@ -39,8 +39,10 @@ def profile_info():
         else:
             current_user.password = str(generate_password_hash(form.password.data, method='sha256'))
 
-        if form.age.data is None:
+        if current_user is None:
             current_user.age = 'No recorde of '
+        elif form.age.data is None:
+            current_user.age = current_user.age
         else:
             current_user.age = str(form.age.data)
 

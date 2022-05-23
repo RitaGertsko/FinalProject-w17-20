@@ -1,0 +1,177 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='products_add_style.css') }}">
+{% endblock head %}
+
+{% block content %}
+<main>
+    <section id="form-section-container">
+        <form id="form" method="POST">
+            <h2>Add New Product</h2>
+            {{ form.hidden_tag() }}
+            <div class="row">
+                <div class="col-12">
+                    {{ form.title.label(class_='form-label') }}
+
+                    {% if form.title.errors %}
+                    {{ form.title(class_='form-control input-form is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.title.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.title(class_='form-control input-form') }}
+                    {% endif %}
+
+                </div>
+                <div class="col-12">
+                    {{ form.description.label(class_='form-label') }}
+
+                    {% if form.description.errors %}
+                    {{ form.description(class_='form-control input-form is-invalid input-textarea-style') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.description.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.description(class_='form-control input-form input-textarea-style') }}
+                    {% endif %}
+
+                </div>
+                <div class="col-12">
+                    {{ form.ingredients.label(class_='form-label') }}
+
+                    {% if form.ingredients.errors %}
+                    {{ form.ingredients(class_='form-control input-form is-invalid input-textarea-style') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.ingredients.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.ingredients(class_='form-control input-form input-textarea-style') }}
+                    {% endif %}
+
+                </div>
+                <div class="col-2">
+                    {{ form.price.label(class_='form-label') }}
+
+                    {% if form.price.errors %}
+                    {{ form.price(class_='form-control input-form is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.price.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.price(class_='form-control input-form') }}
+                    {% endif %}
+
+                </div>
+                <div class="col-12">
+                    {{ form.img.label(class_='form-label') }}
+
+                    {% if form.img.errors %}
+                    {{ form.img(class_='form-control input-form is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.img.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.img(class_='form-control input-form') }}
+                    {% endif %}
+
+                </div>
+                <div class="col-12">
+                    {{ form.img2.label(class_='form-label') }}
+
+                    {% if form.img2.errors %}
+                    {{ form.img2(class_='form-control input-form is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.img2.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.img2(class_='form-control input-form') }}
+                    {% endif %}
+
+                </div>
+                <div class="col-12">
+                    {{ form.img3.label(class_='form-label') }}
+
+                    {% if form.img3.errors %}
+                    {{ form.img3(class_='form-control input-form is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.img3.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.img3(class_='form-control input-form') }}
+                    {% endif %}
+
+                </div>
+                <div class="col-2">
+                    {{ form.sale.label(class_='form-label') }}
+                    {{ form.sale(class_='form-control input-form', id='sale-input') }}
+                </div>
+                <div class="col-6">
+                    {{ form.category.label(class_='form-label') }}
+
+                    {% if form.category.errors %}
+                    {{ form.category(class_='form-control input-form is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.category.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.category(class_='form-control input-form') }}
+                    {% endif %}
+
+                </div>
+                <div class="col-4">
+                    {{ form.company.label(class_='form-label') }}
+
+                    {% if form.company.errors %}
+                    {{ form.company(class_='form-control input-form is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.company.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.company(class_='form-control input-form') }}
+                    {% endif %}
+
+                </div>
+                <div class="col-12">
+                    {{ form.submit(class="btn btn-outline-success", id='add-button') }}
+                </div>
+            </div>
+        </form>
+    </section>
+    <div>
+        <h2>All Products In The Database:</h2>
+    </div>
+    <section id="products-container">
+        {% for product in products %}
+        <div class="card card-product">
+            <a href="#"><img src="{{ product.img }}" class="card-img-top card-img" alt="..."></a>
+            <div class="card-body">
+                <h5 class="card-title">{{ product.title }}</h5>
+            </div>
+            <a href="{{ url_for('product.productInfo', product_id=product.id) }}"
+               class="btn btn-hyperlink btn-outline-success">Read More</a>
+            <a href="{{ url_for('product.removeProduct', product_id=product.id) }}"
+               class="btn btn-hyperlink btn-outline-success">Remove Product</a>
+        </div>
+        {% endfor %}
+    </section>
+</main>
+{% endblock content %}

@@ -53,7 +53,7 @@ def login():
 
         if user:
             if check_password_hash(user.password, password):
-                flask_login.login_user(user, remember=form.remember.data, duration=timedelta(seconds=20))  # check it out <---
+                flask_login.login_user(user, remember=form.remember.data, duration=timedelta(seconds=20))
                 flash(f"{email} logged in successfully", 'success')
                 return redirect(url_for('profile.profile_info'))
             else:

@@ -43,28 +43,28 @@
                     {{ form.password.label(class_='form-label') }}
 
                     {% if form.password.errors %}
-                    {{ form.password(class_='form-control input-form is-invalid', placeholder=user.password)|replace(user.password, '********') }}
+                    {{ form.password(class_='form-control input-form is-invalid', placeholder='********') }}
                     <div class="invalid-feedback">
                         {% for error in form.password.errors %}
                         <span>{{ error }}</span>
                         {% endfor %}
                     </div>
                     {% else %}
-                    {{ form.password(class_='form-control input-form', placeholder=user.password)|replace(user.password, '********') }}
+                    {{ form.password(class_='form-control input-form', placeholder='********') }}
                     {% endif %}
                 </div>
                 <div class="col-6">
                     {{ form.confirm_password.label(class_='form-label') }}
 
                     {% if form.confirm_password.errors %}
-                    {{ form.confirm_password(class_='form-control input-form is-invalid', placeholder=user.password)|replace(user.password, '********') }}
+                    {{ form.confirm_password(class_='form-control input-form is-invalid', placeholder='********') }}
                     <div class="invalid-feedback">
                         {% for error in form.confirm_password.errors %}
                         <span>{{ error }}</span>
                         {% endfor %}
                     </div>
                     {% else %}
-                    {{ form.confirm_password(class_='form-control input-form', placeholder=user.password)|replace(user.password, '********') }}
+                    {{ form.confirm_password(class_='form-control input-form', placeholder='********') }}
                     {% endif %}
                 </div>
                 <div class="col-6">

@@ -30,4 +30,4 @@ def search():
             word_searched = request.form['searched']
             products = Products.query.filter(Products.title.like(f'%{word_searched}%')).all()
             return render_template('search_products.html', form=formSearch, title='Search', products=products)
-    return redirect(url_for('home'))
+    return redirect(url_for('home.index'))

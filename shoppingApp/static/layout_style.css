@@ -63,6 +63,21 @@ body {
   font-size: 0.8em;
 }
 
+#dropdownMenu {
+  width: 70%;
+  background-color: rgba(51, 153, 102, 0.7);
+  border: 2px solid rgb(248, 232, 142);
+}
+
+.dropdown-item {
+  overflow-x: hidden;
+}
+
+.dropdown-item:hover {
+  font-weight: 600;
+  background-color: rgba(248, 232, 142, 0.7);
+}
+
 #secondary-navbar-categories {
   height: 5rem;
   border-top: 1px solid rgb(248, 232, 142);

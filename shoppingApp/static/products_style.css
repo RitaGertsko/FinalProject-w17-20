@@ -5,6 +5,14 @@ main {
   align-items: flex-start;
 }
 
+#form-section-container {
+  height: 50%;
+}
+
+#products-section-container {
+  height: 50%;
+}
+
 #products-container {
   margin: 1em;
   width: 80%;

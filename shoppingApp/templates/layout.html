@@ -62,40 +62,58 @@
                 <ul class="navbar-nav ms-auto mb-lg-0 text-center">
                     {% if not current_user.is_authenticated %}
                     <li class="nav-item me-sm-5">
-                        <a class="nav-link mx-2 p-0 main-navbar-icon" aria-current="page"
+                        <a class="nav-link p-0 main-navbar-icon" aria-current="page"
                            href="{{ url_for('auth.sing_up') }}">
                             <i class="fa-regular fa-user main-navbar-icon"></i>
                         </a>
-                        <a class="nav-link mx-2 p-0 main-navbar-label" aria-current="page"
+                        <a class="nav-link p-0 main-navbar-label" aria-current="page"
                            href="{{ url_for('auth.sing_up') }}">Register</a>
                     </li>
                     <li class="nav-item me-sm-5">
-                        <a class="nav-link mx-2 p-0 main-navbar-icon" href="{{ url_for('auth.login') }}">
+                        <a class="nav-link p-0 main-navbar-icon" href="{{ url_for('auth.login') }}">
                             <i class="fa-solid fa-arrow-right-to-bracket main-navbar-icon"></i>
                         </a>
-                        <a class="nav-link mx-2 p-0 main-navbar-label" href="{{ url_for('auth.login') }}">Sing in</a>
+                        <a class="nav-link p-0 main-navbar-label" href="{{ url_for('auth.login') }}">Sing in</a>
                     </li>
                     {% endif %}
                     {% if current_user.is_authenticated %}
                     <li class="nav-item me-sm-5">
-                        <a class="nav-link mx-2 p-0 main-navbar-icon" aria-current="page"
+                        <a class="nav-link p-0 main-navbar-icon" aria-current="page"
                            href="{{ url_for('profile.profile_info') }}">
                             <i class="fas fa-address-card main-navbar-icon"></i>
                         </a>
-                        <a class="nav-link mx-2 p-0 main-navbar-label" aria-current="page"
+                        <a class="nav-link p-0 main-navbar-label" aria-current="page"
                            href="{{ url_for('profile.profile_info') }}">Profile</a>
                     </li>
+                    {% if current_user.admin == True%}
                     <li class="nav-item me-sm-5">
-                        <a class="nav-link mx-2 p-0 main-navbar-icon" href="{{ url_for('auth.logout') }}">
-                            <i class="fas fa-sign-out-alt main-navbar-icon"></i>
-                        </a>
-                        <a class="nav-link mx-2 p-0 main-navbar-label" href="{{ url_for('auth.logout') }}">Logout</a>
+                        <div class="dropdown">
+                            <div class="nav-link p-0 main-navbar-icon" role="button"
+                                 id="dropdownMenuLink"
+                                 data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-plus-square main-navbar-icon"></i>
+                            </div>
+                            <p class="nav-link p-0 main-navbar-label" data-bs-toggle="dropdown">Admin</p>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink"  id="dropdownMenu">
+                                <li><a class="dropdown-item" href="{{ url_for('product.addProduct') }}">Manage Product</a>
+                                </li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else</a></li>
+                            </ul>
+                        </div>
                     </li>
                     {% endif %}
                     <li class="nav-item me-sm-5">
-                        <a class="nav-link mx-2 p-0 main-navbar-icon" href="#"><i
+                        <a class="nav-link p-0 main-navbar-icon" href="{{ url_for('auth.logout') }}">
+                            <i class="fas fa-sign-out-alt main-navbar-icon"></i>
+                        </a>
+                        <a class="nav-link p-0 main-navbar-label" href="{{ url_for('auth.logout') }}">Logout</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item me-sm-5">
+                        <a class="nav-link p-0 main-navbar-icon" href="#"><i
                                 class="fa-solid fa-basket-shopping main-navbar-icon"></i></a>
-                        <a class="nav-link mx-2 p-0 main-navbar-label" href="#">Cart</a>
+                        <a class="nav-link p-0 main-navbar-label" href="#">Cart</a>
                     </li>
                 </ul>
             </div>
@@ -107,35 +125,35 @@
     <div class="container-fluid">
         <ul class="navbar-nav m-auto">
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">Skin Care</a>
+                <a class="nav-link" aria-current="page" href="{{ url_for('product.skinCare') }}">Skin Care</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">Make Up</a>
+                <a class="nav-link" aria-current="page" href="{{ url_for('product.makeupProducts') }}">Make Up</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">Hair</a>
+                <a class="nav-link" aria-current="page" href="{{ url_for('product.hairCare') }}">Hair</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">Body</a>
+                <a class="nav-link" aria-current="page" href="{{ url_for('product.bodyCare') }}">Body</a>
             </li>
         </ul>
     </div>
 </section>
 
 {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-            {% if category %}
-                <div class="alert alert-{{ category }} mb-3" role="alert">
-                    {{ message }}
-                </div>
-            {% else %}
-                <div class="alert alert-danger mb-3" role="alert">
-                    {{ message }}
-                </div>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
+{% if messages %}
+{% for category, message in messages %}
+{% if category %}
+<div class="alert alert-{{ category }} mb-3" role="alert">
+    {{ message }}
+</div>
+{% else %}
+<div class="alert alert-danger mb-3" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
 {% endwith %}
 
 {% block content %}

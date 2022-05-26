@@ -7,7 +7,7 @@ import flask_login
 from datetime import timedelta
 
 from shoppingApp import db
-from shoppingApp.models import User
+from shoppingApp.models import User, Cart
 
 auth = Blueprint('auth', __name__, template_folder='templates', static_folder='static')
 
@@ -28,6 +28,7 @@ def sing_up():
                             email=form.email.data,
                             password=generate_password_hash(form.password.data, method='sha256'),
                             age=form.age.data)
+
             db.session.add(new_user)
             db.session.commit()
 

@@ -13,7 +13,7 @@ def create_app():
 
     app.config.from_object(Config)
     db.init_app(app)
-    migrate.init_app(app, db)
+    migrate.init_app(app, db, render_as_batch=True)
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -42,6 +42,10 @@ def create_app():
     # blueprint for products routes in our app
     from shoppingApp.products.products_routes import product as product_blueprint
     app.register_blueprint(product_blueprint, url_prefix="/product")
+
+    # blueprint for cart routes in our app
+    from shoppingApp.cart.cart_routes import cart as cart_blueprint
+    app.register_blueprint(cart_blueprint, url_prefix="/cart")
 
     from shoppingApp import config, operate_user_data, models
 

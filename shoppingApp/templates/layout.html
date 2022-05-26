@@ -94,8 +94,9 @@
                                 <i class="fas fa-plus-square main-navbar-icon"></i>
                             </div>
                             <p class="nav-link p-0 main-navbar-label" data-bs-toggle="dropdown">Admin</p>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink"  id="dropdownMenu">
-                                <li><a class="dropdown-item" href="{{ url_for('product.addProduct') }}">Manage Product</a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="dropdownMenu">
+                                <li><a class="dropdown-item" href="{{ url_for('product.addProduct') }}">Manage
+                                    Product</a>
                                 </li>
                                 <li><a class="dropdown-item" href="#">Another action</a></li>
                                 <li><a class="dropdown-item" href="#">Something else</a></li>
@@ -109,12 +110,12 @@
                         </a>
                         <a class="nav-link p-0 main-navbar-label" href="{{ url_for('auth.logout') }}">Logout</a>
                     </li>
-                    {% endif %}
                     <li class="nav-item me-sm-5">
-                        <a class="nav-link p-0 main-navbar-icon" href="#"><i
+                        <a class="nav-link p-0 main-navbar-icon" href="{{ url_for('cart.userCart') }}"><i
                                 class="fa-solid fa-basket-shopping main-navbar-icon"></i></a>
-                        <a class="nav-link p-0 main-navbar-label" href="#">Cart</a>
+                        <a class="nav-link p-0 main-navbar-label" href="{{ url_for('cart.userCart') }}">Cart</a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

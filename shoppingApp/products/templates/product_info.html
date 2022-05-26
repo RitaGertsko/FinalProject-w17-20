@@ -37,7 +37,7 @@
                         aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Close
                     Everything
                 </button>
-                <a href="#"
+                <a href="{{ url_for('cart.addToCart', product_id=product.id) }}"
                    class="btn btn-hyperlink btn-outline-success">Add to cart</a>
             </div>
         </article>

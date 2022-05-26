@@ -37,7 +37,11 @@ class Products(db.Model):
     sale = db.Column(db.Boolean, nullable=False, default=False)
     category = db.Column(db.String, db.ForeignKey('categories.category_name'))
     company = db.Column(db.String, db.ForeignKey('companies.company_name'))
-    cart_id = db.Column(db.String, db.ForeignKey('cart.id'))
+    quantity_in_cart = db.Column(db.Integer, default=0, nullable=True)
+    cart_id = db.relationship("Cart", back_populates="products")
+
+    def __repr__(self):
+        return f"Products('{self.title}', '{self.price}')"
 
 
 class Categories(db.Model):
@@ -58,10 +62,16 @@ class Cart(db.Model):
     __tablename__ = 'cart'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    # product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=True)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
-    cart_items = db.relationship('Products', backref='cart', lazy='dynamic')
-    quantity = db.Column(db.Integer, nullable=True, default=1)
+    quantity = db.Column(db.Integer, nullable=False, default=1)  # X
+    products = db.relationship('Products', back_populates="cart_id") # X
+
+    def __repr__(self):
+        return f"Cart('Id: {self.id}','User id:{self.user_id}'')"
+
+    def add_product_to_cart(self, product):
+        self.products = product
 
 
 class User(UserMixin, db.Model):
@@ -75,4 +85,11 @@ class User(UserMixin, db.Model):
     age = db.Column(db.String(10), nullable=True)
     date_of_registration = db.Column(db.Date, default=date.today())
     admin = db.Column(db.Boolean, default=False)
-    cart = db.Column(db.Integer, db.ForeignKey('cart.id'))
+    cart = db.relationship('Cart', backref='buyer')
+
+    def add_cart_id(self, cart):
+        self.cart = cart
+        cart.user_id = self
+
+    def __repr__(self):
+        return f"User('{self.first_name}','{self.last_name}', '{self.email}','{self.id}')"

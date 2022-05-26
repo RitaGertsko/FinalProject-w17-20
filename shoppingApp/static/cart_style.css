@@ -95,3 +95,7 @@ main {
 .quantity-items-selector {
   width: 3em;
 }
+
+.bold {
+  font-weight: 800;
+}

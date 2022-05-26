@@ -14,7 +14,7 @@
                 <h5 class="card-title">{{ product.title }}</h5>
             </div>
             <a href="{{ url_for('product.productInfo', product_id=product.id) }}" class="btn btn-hyperlink btn-outline-success">Read More</a>
-            <a href="#" class="btn btn-hyperlink btn-outline-success">Add to cart</a>
+            <a href="{{ url_for('cart.addToCart', product_id=product.id) }}" class="btn btn-hyperlink btn-outline-success">Add to cart</a>
         </div>
         {% endfor %}
     </div>

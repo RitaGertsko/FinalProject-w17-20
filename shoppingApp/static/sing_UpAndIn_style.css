@@ -56,6 +56,11 @@ main {
   gap: 0.5em;
 }
 
+#adminFiled {
+  margin: 1em 0;
+  width: 50%;
+}
+
 #rememberMeLabel {
   width: 95%;
 }

@@ -89,6 +89,12 @@
                 {{ form.age.label(class_='form-label') }}
                 {{ form.age(class_='form-control input-form', id='age-input') }}
             </div>
+            {% if user.admin == True %}
+            <div class="col-2" id="adminFiled">
+                {{ form.admin.label(class_='form-label') }}
+                {{ form.admin(class_='form-control input-form', id='rememberMeCheckbox') }}
+            </div>
+            {% endif %}
             <div class="col-12">
                 {{ form.submit(class="btn btn-outline-success", id='sing-up-button') }}
             </div>

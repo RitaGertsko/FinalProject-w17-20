@@ -47,6 +47,10 @@ def create_app():
     from shoppingApp.cart.cart_routes import cart as cart_blueprint
     app.register_blueprint(cart_blueprint, url_prefix="/cart")
 
+    # blueprint for errors routes in our app
+    from shoppingApp.errors.errors_routes import errors as error_blueprint
+    app.register_blueprint(error_blueprint, url_prefix="/error")
+
     from shoppingApp import config, operate_user_data, models
 
     return app

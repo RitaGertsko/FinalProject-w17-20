@@ -7,7 +7,7 @@ import flask_login
 from datetime import timedelta
 
 from shoppingApp import db
-from shoppingApp.models import User, Cart
+from shoppingApp.models import User
 
 auth = Blueprint('auth', __name__, template_folder='templates', static_folder='static')
 
@@ -27,7 +27,8 @@ def sing_up():
                             last_name=form.last_name.data,
                             email=form.email.data,
                             password=generate_password_hash(form.password.data, method='sha256'),
-                            age=form.age.data)
+                            age=form.age.data,
+                            admin=form.admin.data)
 
             db.session.add(new_user)
             db.session.commit()
@@ -36,7 +37,7 @@ def sing_up():
             return redirect(url_for('auth.login'))
         else:
             flash("User with this email already exists, try again", 'danger')
-    return render_template('registration.html', title='Sing Up', form=form)
+    return render_template('registration.html', title='Sing Up', form=form, user=flask_login.current_user)
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -68,4 +69,12 @@ def login():
 @flask_login.login_required
 def logout():
     flask_login.logout_user()
+    return redirect(url_for('home.index'))
+
+
+@auth.route('/administration', methods=['GET', 'POST'])
+@flask_login.login_required
+def addUserAdmin():
+    if flask_login.current_user.admin:
+        return redirect(url_for('auth.sing_up', user=flask_login.current_user))
     return redirect(url_for('home.index'))

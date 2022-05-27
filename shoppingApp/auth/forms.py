@@ -17,6 +17,7 @@ class RegistrationForm(FlaskForm):
     age = RadioField(label="Age: ",
                      choices=[('14-20', '14-20'), ('20-30', '20-30'), ('30-40', '30-40'), ('40-50', '40-50'),
                               ('+50', '+50')], validators=[Optional()])
+    admin = BooleanField(label='Admin:', validators=[Optional()])
     submit = SubmitField(label='Sign up')
 
 

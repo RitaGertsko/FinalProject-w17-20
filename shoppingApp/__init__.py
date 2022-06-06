@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from shoppingApp.config import Config
+from shoppingApp import config
 from flask_migrate import Migrate
 from flask_login import LoginManager
 

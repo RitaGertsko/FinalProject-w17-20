@@ -30,6 +30,7 @@ def create_app():
     # blueprint for main routes in our app
     from shoppingApp.main.main_routes import home as home_blueprint
     app.register_blueprint(home_blueprint, url_prefix="/home")
+    app.register_blueprint(home_blueprint, url_prefix="/")
 
     # blueprint for auth routes in our app
     from shoppingApp.auth.auth_routes import auth as auth_blueprint
